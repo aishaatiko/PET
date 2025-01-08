@@ -1,0 +1,41 @@
+name: personal_expense_tracker
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+  # sdk: "^3.6.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  provider: ^6.1.2
+  intl: ^0.18.0
+  fl_chart: ^0.69.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  change_app_package_name: ^1.4.0
+
+flutter:
+  uses-material-design: true
+
+
+  assets:
+    - images/
+
+  fonts:
+    - family: Oswald
+      fonts:
+       - asset: fonts/Oswald/Oswald-Regular.ttf
+    - family: Staatliches
+      fonts:
+       - asset: fonts/Staatliches/Staatliches-Regular.ttf
+    - family: Oxygen
+      fonts:
+       - asset: fonts/Oxygen/Oxygen-Regular.ttf
+
