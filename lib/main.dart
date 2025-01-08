@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expense_tracker/providers/expense_provider.dart';
+import 'package:personal_expense_tracker/providers/theme_provider.dart';
 import 'package:personal_expense_tracker/routes/router_generator.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ExpenseProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -12,22 +21,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ExpenseProvider(),
-      child: MaterialApp(
-        title: 'Personal Expense Tracker',
-        theme: ThemeData(
-          // primarySwatch: Colors.pink,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
-          // colorSchemeSeed: ,
-          // brightness: ,
-          useMaterial3: true,
-          fontFamily: 'Staatliches',
-        ),
-        initialRoute: '/',
-        onGenerateRoute: RouteGenerator.generateRoute,
-        debugShowCheckedModeBanner: false,
-      ),
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    return MaterialApp(
+      title: 'Personal Expense Tracker',
+      theme: themeProvider.themeData,
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

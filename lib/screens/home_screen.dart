@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expense_tracker/models/expense.dart';
+import 'package:personal_expense_tracker/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import '../providers/expense_provider.dart';
 import '../widgets/expense_item.dart';
@@ -10,12 +11,26 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Expense> expenses = Provider.of<ExpenseProvider>(context).expenses;
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('PET: Personal Expense Tracker'),
         shadowColor: Colors.black,
         elevation: 5.0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(
+                themeProvider.themeData.brightness == Brightness.light
+                    ? Icons.nightlight_round
+                    : Icons.wb_sunny,
+              ),
+              onPressed: themeProvider.toggleTheme,
+            ),
+          ),
+        ],
       ),
       body: expenses.isEmpty
           ? Center(

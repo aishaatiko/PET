@@ -23,6 +23,9 @@ class ExpenseItem extends StatelessWidget {
           child: Image.asset(
             categoryImages[expense.category] ?? 'assets/images/other.png',
             fit: BoxFit.fitHeight,
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black
+                : Colors.white,
           ),
         ),
         title: Row(

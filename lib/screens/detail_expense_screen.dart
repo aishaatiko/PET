@@ -87,6 +87,9 @@ class DetailMobilePage extends StatelessWidget {
                 'images/${expense.category.toLowerCase()}.png',
                 height: 100,
                 width: 100,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,
               ),
             ),
           const SizedBox(height: 16),
@@ -120,7 +123,7 @@ class DetailMobilePage extends StatelessWidget {
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(8.0),
-            color: Colors.pink.shade50,
+            color: Theme.of(context).colorScheme.primaryContainer,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
