@@ -1,3 +1,4 @@
-# personal_expense_tracker
+# PET: Personal Expense Tracker
 
-A new Flutter project.
+Flutter application project that can list personal expense and track expense. 
+user can add, edit and delete expense data.
