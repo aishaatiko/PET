@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 import '../models/expense.dart';
 
 class ExpenseProvider with ChangeNotifier {
-  final List<Expense> _expenses = [];
+  final _expenseBox = Hive.box<Expense>('expenses');
   final List<Expense> mockExpenses = [
     Expense(
       id: 'e2',
@@ -34,15 +35,16 @@ class ExpenseProvider with ChangeNotifier {
     'Health',
     'Other'
   ];
-  List<Expense> get expenses =>
-      [...mockExpenses, ...mockExpenses, ...mockExpenses, ..._expenses];
+  List<Expense> get expenses => [..._expenseBox.values.toList()];
   List<String> get categories => [..._categories];
   Map<String, String> get categoryImages => _categoryImages;
 
   void addExpense(String title, double amount, String category) {
-    _expenses.add(
+    var id = DateTime.now().toString();
+    _expenseBox.put(
+      id,
       Expense(
-        id: DateTime.now().toString(),
+        id: id,
         title: title,
         amount: amount,
         date: DateTime.now(),
@@ -52,22 +54,19 @@ class ExpenseProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteExpense(String id) {
-    _expenses.removeWhere((expense) => expense.id == id);
+  void deleteExpense(String id) async {
+    await _expenseBox.delete(id);
     notifyListeners();
   }
 
-  void updateExpense(String id, String title, double amount, String category) {
-    final index = _expenses.indexWhere((expense) => expense.id == id);
-    if (index != -1) {
-      _expenses[index] = Expense(
-        id: _expenses[index].id,
-        title: title,
-        amount: amount,
-        category: category,
-        date: _expenses[index].date,
-      );
-      notifyListeners();
-    }
+  void updateExpense(Expense expense) {
+    _expenseBox.put(expense.id, expense);
+    notifyListeners();
+  }
+
+  @override
+  void dispose() async {
+    await Hive.close();
+    super.dispose();
   }
 }

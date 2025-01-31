@@ -40,10 +40,13 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
     }
 
     Provider.of<ExpenseProvider>(context, listen: false).updateExpense(
-      widget.expense.id,
-      title,
-      amount,
-      _selectedCategory!,
+      Expense(
+        id: widget.expense.id,
+        title: title,
+        amount: amount,
+        category: _selectedCategory!,
+        date: widget.expense.date,
+      ),
     );
 
     Navigator.pushReplacementNamed(context, '/detailExpenseScreen',
