@@ -1,9 +1,12 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' hide Category;
 import 'package:hive/hive.dart';
-import '../models/expense.dart';
+import 'package:personal_expense_tracker/models/expense.dart';
+import 'package:personal_expense_tracker/models/category.dart';
 
 class ExpenseProvider with ChangeNotifier {
   final _expenseBox = Hive.box<Expense>('expenses');
+  final categoryBox = Hive.box<Category>('categories');
+
   final List<Expense> mockExpenses = [
     Expense(
       id: 'e2',
@@ -61,6 +64,20 @@ class ExpenseProvider with ChangeNotifier {
 
   void updateExpense(Expense expense) {
     _expenseBox.put(expense.id, expense);
+    notifyListeners();
+  }
+
+  void addCategory(String name) {
+    final newCategory = Category(
+      id: DateTime.now().toString(),
+      name: name,
+    );
+    categoryBox.put(newCategory.id, newCategory); // Add the category
+    notifyListeners();
+  }
+
+  void deleteCategoryAndRefresh(String id) {
+    categoryBox.delete(id); // Delete the category
     notifyListeners();
   }
 

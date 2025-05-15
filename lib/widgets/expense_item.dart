@@ -20,9 +20,10 @@ class ExpenseItem extends StatelessWidget {
       child: ListTile(
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            categoryImages[expense.category] ?? 'assets/images/other.png',
-            fit: BoxFit.fitHeight,
+          child: Icon(
+            // categoryImages[expense.category] ?? 'assets/images/other.png',
+            // fit: BoxFit.fitHeight,
+            Icons.pets,
             color: Theme.of(context).brightness == Brightness.light
                 ? Colors.black
                 : Colors.white,

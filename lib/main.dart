@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:personal_expense_tracker/models/category.dart';
 import 'package:personal_expense_tracker/models/expense.dart';
 import 'package:personal_expense_tracker/providers/expense_provider.dart';
 import 'package:personal_expense_tracker/providers/theme_provider.dart';
@@ -8,10 +9,10 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter(); // Initialize Hive
   Hive.registerAdapter(ExpenseAdapter()); // Register adapter for your model
   await Hive.openBox<Expense>('expenses'); // Open a box for your expenses
+  await Hive.openBox<Category>('categories'); // Open categories box
 
   final themeProvider = ThemeProvider();
   await themeProvider.loadThemeSynchronously(); // Synchronous loading
