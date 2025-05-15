@@ -4,6 +4,7 @@ import 'package:personal_expense_tracker/screens/add_expense_screen.dart';
 import 'package:personal_expense_tracker/screens/detail_expense_screen.dart';
 import 'package:personal_expense_tracker/screens/edit_expense_screen.dart';
 import 'package:personal_expense_tracker/screens/home_screen.dart';
+// import 'package:personal_expense_tracker/screens/login_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(
@@ -14,6 +15,7 @@ class RouteGenerator {
       case "/":
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
+          // const LoginScreen(),
         );
       case "/addExpenseScreen":
         return MaterialPageRoute(
